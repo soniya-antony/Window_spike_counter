@@ -1,1 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Many Spikes In Your Window?</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">🪟 HOW MANY SPIKES?</div>
+        <nav>
+            <button class="nav-btn active" data-target="home">Home</button>
+            <button class="nav-btn" data-target="stats">Stats</button>
+            <button class="nav-btn" data-target="achievements">Achievements</button>
+            <button class="nav-btn" data-target="history">History</button>
+        </nav>
+    </header>
 
+    <main>
+        <!-- HOME SECTION -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h1>HOW MANY SPIKES IN YOUR WINDOW?</h1>
+                <p class="subtitle">“A completely unnecessary tool for counting things on your window.”</p>
+            </div>
+
+            <div class="card upload-card">
+                <div class="image-preview-container" id="imagePreviewContainer">
+                    <img id="imagePreview" src="" alt="Window Preview" style="display: none;">
+                    <div class="placeholder-text" id="placeholderText">
+                        <span class="icon">🖼️</span>
+                        <p>No window selected</p>
+                    </div>
+                </div>
+                
+                <div class="input-actions">
+                    <label for="imageUpload" class="btn btn-secondary">Upload your own image</label>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                    <span class="or">or</span>
+                    <button id="useExampleBtn" class="btn btn-secondary">Use example image</button>
+                </div>
+
+                <button id="countSpikesBtn" class="btn btn-primary btn-large disabled">COUNT MY SPIKES →</button>
+                <p class="small-text">“No practical purpose. 100% commitment.”</p>
+            </div>
+        </section>
+
+        <!-- PROCESSING SECTION -->
+        <section id="processing" class="page">
+            <div class="processing-container">
+                <div class="spinner">🪟</div>
+                <h2 id="processingText">Inspecting your window...</h2>
+            </div>
+        </section>
+
+        <!-- RESULT SECTION -->
+        <section id="result" class="page">
+            <div class="card result-card">
+                <div class="result-badge">JUDGEMENT COMPLETE</div>
+                <h3>YOUR WINDOW HAS</h3>
+                <h1 class="huge-number" id="resultSpikeCount">0</h1>
+                <h3 class="spikes-label">SPIKES</h3>
+
+                <div class="funny-message" id="resultMessage"></div>
+
+                <div class="score-container">
+                    <div class="score-box">
+                        <p class="box-title">WINDOW SCORE</p>
+                        <h2 id="resultScore">0 / 100</h2>
+                        <p class="score-desc" id="scoreDesc">Description</p>
+                    </div>
+                    <div class="personality-box">
+                        <p class="box-title">WINDOW PERSONALITY</p>
+                        <h2 id="resultPersonality">The Normal One</h2>
+                        <p class="personality-desc" id="personalityDesc">"Description"</p>
+                    </div>
+                </div>
+
+                <!-- Result mini status strip showing profile & uselessness updates -->
+                <div class="result-summary-bar">
+                    <div class="summary-pill">
+                        <span class="pill-label">👤 OWNER:</span>
+                        <strong id="resultProfileUser">Window Explorer</strong>
+                    </div>
+                    <div class="summary-pill clickable-pill" id="resultRankPill" role="button" tabindex="0" title="Click to view rank details">
+                        <span class="pill-label">🏆 RANK:</span>
+                        <strong id="resultProfileRank">Casual Counter</strong>
+                        <span class="pill-tap-hint">🔍</span>
+                    </div>
+                    <div class="summary-pill">
+                        <span class="pill-label">🤡 USELESSNESS:</span>
+                        <strong id="resultUselessness">65% USELESS</strong>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="countAnotherBtn" class="btn btn-primary btn-large" style="margin-top: 0;">COUNT ANOTHER WINDOW →</button>
+                    <div class="secondary-actions">
+                        <button id="copyResultBtn" class="btn btn-secondary">COPY RESULT</button>
+                        <button id="shareResultBtn" class="btn btn-secondary">SHARE RESULT</button>
+                    </div>
+                </div>
+                <p id="copyConfirm" class="copy-confirm">Copied to clipboard! 📋</p>
+            </div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section id="stats" class="page">
+            <div class="profile-header card">
+                <h2>WINDOW OWNER PROFILE</h2>
+                <h3 id="profileUsername" class="highlight">Window Explorer</h3>
+                <button class="rank-badge" id="profileRank" type="button" aria-haspopup="dialog" aria-expanded="false" title="Click to view rank details and progress">
+                    <span id="profileRankText">Window Intern</span>
+                    <span class="badge-hint-icon">🔍</span>
+                </button>
+            </div>
+
+            <div class="uselessness-meter card">
+                <h2>USELESSNESS METER 🤡</h2>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="uselessnessBar"></div>
+                </div>
+                <p class="progress-text"><span id="uselessnessPercent">0</span>% USELESS</p>
+                <p class="small-text">“This information has absolutely no practical application.”</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="card stat-card">
+                    <p>Windows Inspected</p>
+                    <h3 id="statWindows">0</h3>
+                </div>
+                <div class="card stat-card">
+                    <p>Total Spikes Counted</p>
+                    <h3 id="statTotalSpikes">0</h3>
+                </div>
+                <div class="card stat-card">
+                    <p>Highest Spike Count</p>
+                    <h3 id="statHighestSpikes">0</h3>
+                </div>
+                <div class="card stat-card">
+                    <p>Average Spike Count</p>
+                    <h3 id="statAverageSpikes">0</h3>
+                </div>
+                <div class="card stat-card">
+                    <p>Best Window Score</p>
+                    <h3 id="statBestScore">0/100</h3>
+                </div>
+            </div>
+
+            <div class="card leaderboard">
+                <h2>SPIKE LEGENDS 🏆</h2>
+                <ul class="leaderboard-list" id="leaderboardList">
+                    <!-- Populated by JS -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS SECTION -->
+        <section id="achievements" class="page">
+            <div class="card">
+                <h2>YOUR ACHIEVEMENTS 🏅</h2>
+                <div class="achievements-grid" id="achievementsGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- HISTORY SECTION -->
+        <section id="history" class="page">
+            <div class="card">
+                <h2>YOUR WINDOW HISTORY</h2>
+                <ul class="history-list" id="historyList">
+                    <!-- Populated by JS -->
+                </ul>
+                <button id="clearHistoryBtn" class="btn btn-secondary mt-2">CLEAR HISTORY</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 How Many Spikes in Your Window?</p>
+        <p>“Making absolutely unnecessary technology since today.”</p>
+        <p class="small-text"><strong>Privacy Policy: We don't care about your window.</strong></p>
+    </footer>
+
+    <!-- Rank Details Modal -->
+    <div id="rankModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="rankModalTitle">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeRankModalBtn" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon" id="modalRankIcon">🔍</span>
+                <h2 id="rankModalTitle">WINDOW DETECTIVE</h2>
+            </div>
+            <div class="modal-body">
+                <div class="rank-info-row">
+                    <span class="info-label">Current Rank:</span>
+                    <strong class="info-value" id="modalCurrentRank">Window Detective</strong>
+                </div>
+                <div class="rank-info-row">
+                    <span class="info-label">Windows Inspected:</span>
+                    <strong class="info-value highlight-num" id="modalWindowsInspected">0</strong>
+                </div>
+                <div class="rank-info-row">
+                    <span class="info-label">Requirement:</span>
+                    <span class="info-value" id="modalRequirement">Inspect 5 windows</span>
+                </div>
+                <div class="rank-info-row">
+                    <span class="info-label">Next Rank:</span>
+                    <strong class="info-value" id="modalNextRank">Certified Spike Analyst</strong>
+                </div>
+                <div class="rank-info-row">
+                    <span class="info-label">Requirement for next rank:</span>
+                    <span class="info-value" id="modalNextRequirement">Inspect 10 windows</span>
+                </div>
+
+                <div class="rank-progress-box">
+                    <div class="progress-labels">
+                        <span id="modalProgressFraction">0 / 10 windows</span>
+                        <strong id="modalProgressPercent">0% to next rank</strong>
+                    </div>
+                    <div class="modal-progress-bar-bg">
+                        <div class="modal-progress-bar-fill" id="modalProgressBarFill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="modalDismissBtn">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Toast -->
+    <div id="toast" class="toast">
+        <div class="toast-icon">🏅</div>
+        <div class="toast-content">
+            <h4>Achievement Unlocked!</h4>
+            <p id="toastMessage">Message</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
